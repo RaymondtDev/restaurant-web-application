@@ -1,10 +1,10 @@
 export const tables: Object = {
-  A1: 2,
-  A2: 3,
-  A3: 4,
-  B1: 2,
-  B2: 4,
-  B3: 6
+  "A1": 2,
+  "A2": 3,
+  "A3": 4,
+  "B1": 2,
+  "B2": 4,
+  "B3": 6
 };
 
 export const timeSlots: Array<String> = [
