@@ -8,7 +8,6 @@ const UserSchema: Schema = new Schema({
   email: { type: String, required: true, unique: true },
   phone: { type: String, required: true, unique: true },
   passwordHash: { type: String, required: true },
-  isAdmin: { type: Boolean, default: false },
   reservations: [{ type: Schema.Types.ObjectId, ref: "Reservation" }],
   cart: [{ type: Schema.Types.ObjectId, ref: "Product" }],
   orderHistory: [{ type: Schema.Types.ObjectId, ref: "Order" }],
