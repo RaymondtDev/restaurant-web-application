@@ -1,4 +1,8 @@
-export const tables: Object = {
+type Table = {
+  [key: string]: number
+}
+
+export const tables: Table = {
   "A1": 2,
   "A2": 3,
   "A3": 4,
@@ -7,7 +11,7 @@ export const tables: Object = {
   "B3": 6
 };
 
-export const timeSlots: Array<String> = [
+export const timeSlots: Array<string> = [
   "12:00 PM - 1:00 PM",
   "1:00 PM - 2:00 PM",
   "2:00 PM - 3:00 PM",
