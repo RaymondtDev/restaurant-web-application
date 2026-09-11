@@ -1,1 +1,52 @@
 @import "tailwindcss";
+
+html {
+  @apply box-border;
+}
+
+.MuiFormControl-root {
+  width: 100%;
+}
+
+@theme {
+  --color-charcoal-800: #1c1c1c;
+  --color-charcoal-700: #2c2c2c;
+  --color-charcoal-600: #3c3c3c;
+  --color-charcoal-500: #4c4c4c;
+  --color-charcoal-400: #5c5c5c;
+  --color-charcoal-300: #6c6c6c;
+  --color-charcoal-200: #7c7c7c;
+  --color-charcoal-100: #8c8c8c;
+}
+
+h1 {
+  @apply text-4xl font-bold mb-4;
+}
+h2 {
+  @apply text-3xl font-semibold mb-3;
+}
+h3 {
+  @apply text-2xl font-semibold mb-2;
+}
+h4 {
+  @apply text-xl font-semibold mb-1;
+}
+h5 {
+  @apply text-lg font-semibold mb-1;
+}
+
+input {
+  @apply border border-charcoal-300/50 bg-charcoal-100/10 rounded-full px-3 py-2 w-full focus:outline-2 focus:outline-charcoal-600;
+}
+
+select {
+  @apply bg-charcoal-700 text-white rounded-full px-3 py-2 w-full focus:outline-2 focus:outline-charcoal-600;
+}
+
+textarea {
+  @apply border border-charcoal-300/50 bg-charcoal-100/10 rounded-xl px-3 py-2 w-full focus:outline-2 focus:outline-charcoal-600;
+}
+
+img {
+  @apply w-full h-auto object-cover;
+}

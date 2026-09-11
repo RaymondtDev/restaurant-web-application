@@ -1,6 +1,10 @@
+import ReservationForm from './components/ReservationForm';
+
 function App() {
   return (
-    <h1 className="text-3xl text-red-500">Welcome to the Restaurant Reservation System</h1>
+    <div className="bg-gray-300 h-screen flex items-center justify-center">
+      <ReservationForm />
+    </div>
   )
 }
 
