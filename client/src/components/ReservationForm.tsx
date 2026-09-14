@@ -115,9 +115,9 @@ export default function ReservationForm({ displayFunc }: PropTypes) {
   }, [])
 
   return (
-    <div {...handlers} className="relative size-full md:size-19/20 bg-white pb-2 md:p-2.5 lg:p-5 rounded-lg shadow-xl flex flex-col justify-between lg:px-10 xl:px-50 overflow-y-auto scrollbar-none" ref={containerRef}>
+    <div {...handlers} className="relative size-full md:size-19/20 bg-white pb-2 md:p-2.5 lg:p-5 rounded-lg shadow-xl flex flex-col justify-between lg:px-10 xl:px-50 overflow-y-auto scrollbar-none z-20" ref={containerRef}>
       {/* close form button */}
-      <div className="z-20 absolute top-0 right-0 mt-4 mr-4 cursor-pointer" onClick={displayFunc}>
+      <div className="absolute top-0 right-0 mt-4 mr-4 cursor-pointer" onClick={displayFunc}>
         <RxCross2 size={25} />
       </div>
 
