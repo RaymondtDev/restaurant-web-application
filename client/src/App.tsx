@@ -1,10 +1,13 @@
-import ReservationForm from './components/ReservationForm';
+import Header from './components/Header';
+import { MobileStateProvider } from './contexts/MobileStateProvider';
+import Home from './pages/Home/Home';
 
 function App() {
   return (
-    <div className="bg-gray-300 h-screen flex items-center justify-center">
-      <ReservationForm />
-    </div>
+    <MobileStateProvider>
+      <Header />
+      <Home />
+    </MobileStateProvider>
   )
 }
 

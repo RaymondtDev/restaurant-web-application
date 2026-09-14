@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ephesis&display=swap');
 @import "tailwindcss";
 
 html {
@@ -17,22 +20,13 @@ html {
   --color-charcoal-300: #6c6c6c;
   --color-charcoal-200: #7c7c7c;
   --color-charcoal-100: #8c8c8c;
+  --font-head: "Cormorant", serif;
+  --font-body: "Monserrat", sans-serif;
+  --font-logo: "Ephesis", cursive;
 }
 
-h1 {
-  @apply text-4xl font-bold mb-4;
-}
-h2 {
-  @apply text-3xl font-semibold mb-3;
-}
-h3 {
-  @apply text-2xl font-semibold mb-2;
-}
-h4 {
-  @apply text-xl font-semibold mb-1;
-}
-h5 {
-  @apply text-lg font-semibold mb-1;
+body {
+  @apply font-body;
 }
 
 input {
@@ -40,7 +34,19 @@ input {
 }
 
 select {
-  @apply bg-charcoal-700 text-white rounded-full px-3 py-2 w-full focus:outline-2 focus:outline-charcoal-600;
+  @apply bg-charcoal-700 text-white rounded-full px-3 py-2 w-full cursor-pointer focus:outline-2 focus:outline-charcoal-600;
+}
+
+select {
+  appearance: base-select;
+  position: relative;
+}
+
+select::picker-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 textarea {
@@ -49,4 +55,8 @@ textarea {
 
 img {
   @apply w-full h-auto object-cover;
+}
+
+table th, table td {
+  @apply p-4;
 }

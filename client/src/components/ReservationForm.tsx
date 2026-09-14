@@ -1,12 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent, type ChangeEventHandler } from 'react';
 import clsx from 'clsx';
 import { FaCheck, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { MdRefresh, MdTableBar } from 'react-icons/md';
 import { IoPeople } from 'react-icons/io5';
-import dayjs from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import { useSwipeable } from 'react-swipeable';
 
 import TA1 from '../assets/table-a1.svg';
 import TA2 from '../assets/table-a2.svg';
@@ -14,6 +15,7 @@ import TA3 from '../assets/table-a3.svg';
 import TB1 from '../assets/table-b1.svg';
 import TB2 from '../assets/table-b2.svg';
 import TB3 from '../assets/table-b3.svg';
+import { RxCross2 } from 'react-icons/rx';
 
 interface TableObject {
   image?: string;
@@ -21,24 +23,56 @@ interface TableObject {
   seats: number;
 }
 
-export default function ReservationForm() {
+interface UserData {
+  name: string,
+  surname: string,
+  email: string,
+  phone: string,
+  occasion?: string,
+  specialRequest?: string
+}
+
+interface PropTypes {
+  displayFunc: () => void
+}
+
+export default function ReservationForm({ displayFunc }: PropTypes) {
+  const [userData, setUserData] = useState<UserData>({
+    name: '',
+    surname: '',
+    email: '',
+    phone: '',
+    occasion: '',
+    specialRequest: ''
+  })
   const [timeSlots, setTimeSlots] = useState<string[] | null>(null);
   const [timeSlot, setTimeSlot] = useState<string | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Dayjs | null>(dayjs(new Date));
   const [step, setStep] = useState<number>(1);
   const [selectedTable, setSelectedTable] = useState<TableObject | null>(null);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [checkAvail, setCheckAvail] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   const tables: TableObject[] = [
-    { image: TA1, name: "a1", seats: 2}, 
-    { image: TA2, name: "a2", seats: 3}, 
-    { image: TA3, name: "a3", seats: 4}, 
-    { image: TB1, name: "b1", seats: 2}, 
-    { image: TB2, name: "b2", seats: 4}, 
-    { image: TB3, name: "b3", seats: 6}
+    { image: TA1, name: "A1", seats: 2}, 
+    { image: TA2, name: "A2", seats: 3}, 
+    { image: TA3, name: "A3", seats: 4}, 
+    { image: TB1, name: "B1", seats: 4}, 
+    { image: TB2, name: "B2", seats: 6}, 
+    { image: TB3, name: "B3", seats: 8}
   ];
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+
+    setUserData((prevData) => ({
+      ...prevData,
+      [name]: value
+    }))
+  }
 
   const handleNextStep = () => {
     if (step < 3) {
@@ -52,9 +86,15 @@ export default function ReservationForm() {
     }
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => handleNextStep(),
+    onSwipedRight: () => handlePreviousStep(),
+    trackMouse: true
+  })
+
   useEffect(() => {
     if (inputRef.current) {
-      (inputRef.current as HTMLInputElement).focus();
+      inputRef.current.focus();
     }
 
     const handleScroll: () => void = () => {
@@ -75,11 +115,16 @@ export default function ReservationForm() {
   }, [])
 
   return (
-    <div className="size-19/20 bg-white pb-2 md:p-2.5 lg:p-5 rounded-lg shadow-md flex flex-col justify-between lg:px-30 overflow-y-auto scrollbar-none" ref={containerRef}>
+    <div {...handlers} className="relative size-full md:size-19/20 bg-white pb-2 md:p-2.5 lg:p-5 rounded-lg shadow-xl flex flex-col justify-between lg:px-10 xl:px-50 overflow-y-auto scrollbar-none" ref={containerRef}>
+      {/* close form button */}
+      <div className="z-20 absolute top-0 right-0 mt-4 mr-4 cursor-pointer" onClick={displayFunc}>
+        <RxCross2 size={25} />
+      </div>
+
       {/* steps navigation header */}
       <div className={
         clsx(
-          "sticky md:static flex items-start p-2 z-10 md:shadow-none md:px-5 lg:px-10 top-0 w-full bg-white",
+          "sticky mt-12 md:mt-0 md:static flex items-start p-2 z-10 md:shadow-none md:px-5 lg:px-10 top-0 w-full bg-white",
           {
             "shadow-md": isScrolled
           }
@@ -163,37 +208,38 @@ export default function ReservationForm() {
       </div>
       
       {/* form container */}
-      <div className="flex-1 my-4 px-2 md:px-5 lg:px-10">
-        { step === 1 && <div>
+      <div className="md:min-h-0 md:h-full flex-1 my-4 px-2 md:px-5 lg:px-10">
+        { step === 1 && <div className="flex flex-col h-full md:min-h-0">
           <div>
             <div className="flex flex-col gap-2 mb-3">
-              <input type="text" name="name" id="name" placeholder="Enter your name..." ref={inputRef} />
-              <input type="text" name="surname" id="surname" placeholder="Enter your surname..." />
+              <input type="text" name="name" id="name" placeholder="Enter your name..." ref={inputRef} onChange={handleChange} value={userData.name} required />
+              <input type="text" name="surname" id="surname" placeholder="Enter your surname..." onChange={handleChange} value={userData.surname} required />
             </div>
             <div className="flex flex-col md:flex-row gap-2 mb-3">
-              <input type="email" name="email" id="email" placeholder="Enter your email..." />
-              <input type="tel" name="phone" id="phone" placeholder="Enter your phone number..." />
+              <input type="email" name="email" id="email" placeholder="Enter your email..." onChange={handleChange} value={userData.email} required />
+              <input type="tel" name="phone" id="phone" placeholder="Enter your phone number..." onChange={handleChange} value={userData.phone} required />
             </div>
           </div>
-          <select name="Occasion" id="Occasion" className="w-full mb-3">
-            <option value="">Select an occasion...</option>
+          <select name="occasion" id="occasion" className="w-full mb-3" onChange={handleChange} value={userData.occasion}>
+            <option value="">Select an occasion... (Optional)</option>
             <option value="Birthday">Birthday</option>
             <option value="Anniversary">Anniversary</option>
             <option value="Business Meeting">Business Meeting</option>
             <option value="Other">Other</option>
           </select>
-          <textarea name="requests" id="requests" placeholder="Any special requests?" rows={6}></textarea>
+          <textarea name="specialRequest" id="specialRequest" placeholder="Any special requests? (Optional)" className="flex-1" rows={6} onChange={handleChange} value={userData.specialRequest} ></textarea>
         </div> }
 
-        { step === 2 && <div className="h-full flex flex-col">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 flex-1">
-            <div className="flex flex-col gap-2">
+        { step === 2 && <div className="md:min-h-0 md:h-full flex-1 flex flex-col">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 min-h-0 h-full flex-1">
+            <div className="flex flex-col gap-2 min-h-0 h-full">
               <div className="mb-2">
-                <p className="mb-1">Pick a Date</p>
+                <p className="mb-1">Pick a Date <span className='text-red-600'>*</span></p>
                 <div>
                   <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
-                      defaultValue={dayjs(new Date())}
+                      value={selectedDate}
+                      onChange={(newVal) => setSelectedDate(newVal)}
                       slotProps={{
                         // style border radius
                         textField: {
@@ -210,8 +256,8 @@ export default function ReservationForm() {
                   </LocalizationProvider>
                 </div>
               </div>
-              <p className="mb-1">Pick a Table</p>
-              <div className="grid grid-cols-2 lg:grid-cols-3 flex-1 gap-2 p-2 bg-charcoal-100/20 rounded-md overflow-y-auto">
+              <p className="mb-1">Pick a Table <span className='text-red-600'>*</span></p>
+              <div className="grid grid-cols-2 lg:grid-cols-3 min-h-0 h-full flex-1 gap-2 p-2 bg-charcoal-100/20 rounded-md overflow-y-auto md:scrollbar-none">
                 {tables.map((table) => (
                   <div key={table.name} className={
                     clsx(
@@ -237,9 +283,20 @@ export default function ReservationForm() {
             <div className="flex flex-col">
               <p className="mb-1">Pick a Time</p>
               <div className="bg-charcoal-800 rounded-xl p-2 flex-1">
-                {!timeSlots && (
+                {timeSlots && timeSlots.length > 0 ? (
+                  <p>Placeholder</p>
+                ) : timeSlots && timeSlots.length < 1 ? (
+                  <p>no times available, please pick a different table of date</p>
+                ) : (
                   <div className="flex items-center justify-center h-full py-8">
-                    <button className="text-black bg-white rounded-full p-4 flex items-center justify-center cursor-pointer transition hover:scale-110 animation-pulse">
+                    <button className={
+                      clsx(
+                        "text-black bg-white rounded-full p-4 flex items-center justify-center cursor-pointer transition hover:scale-110 animation-pulse",
+                        {
+                          "pointer-events-none": !checkAvail
+                        }
+                      )
+                    }>
                       <MdRefresh size={25} />
                     </button>
                   </div>
@@ -250,16 +307,38 @@ export default function ReservationForm() {
         </div> }
 
         { step === 3 && <div>
-          <h2>Step 3: Review and Confirm</h2>
+          <table className='w-full table-fixed'>
+            <thead>
+              <tr className='bg-charcoal-100/50'>
+                <th className='text-start'></th>
+                <th className='text-start bg-charcoal-100/70'>Info</th>
+              </tr>
+            </thead>
+            <tbody className='[&>*:nth-child(even)]:bg-charcoal-100/10'>
+              <tr>
+                <td className='border-r border-dashed border-charcoal-700'>Name</td>
+                <td>{userData.name}</td>
+              </tr>
+              <tr>
+                <td className='border-r border-dashed border-charcoal-700'>Surname</td>
+                <td>{userData.surname}</td>
+              </tr>
+              <tr>
+                <td className='border-r border-dashed border-charcoal-700'>Email</td>
+                <td>{userData.email}</td>
+              </tr>
+              <tr>
+                <td className='border-r border-dashed border-charcoal-700'>Phone</td>
+                <td>{userData.phone}</td>
+              </tr>
+            </tbody>
+          </table>
         </div> }
       </div>
 
       <div className={
         clsx(
-          "sticky bottom-0 md:static flex px-2 md:px-5 lg:px-10 justify-between",
-          {
-            
-          }
+          "fixed w-full bottom-0 md:static flex px-2 md:px-5 lg:px-10 justify-between"
         )
         }>
           <button className={
