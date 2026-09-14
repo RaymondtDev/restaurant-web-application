@@ -24,8 +24,9 @@ function Home() {
             <IoIosArrowRoundForward size={25} />
           </button>
         </div>
-        <div className="md:flex-1/3 lg:flex-1/2 hidden md:block"></div>
+        <div className="hidden md:block md:flex-1/3 lg:flex-1/2"></div>
       </section>
+
       { displayForm && (
         <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center">
           <ReservationForm displayFunc={hideForm} />
