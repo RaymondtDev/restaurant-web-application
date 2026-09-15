@@ -29,7 +29,7 @@ body {
   @apply font-body;
 }
 
-input {
+input:not([type="search"]) {
   @apply border border-charcoal-300/50 bg-charcoal-100/10 rounded-full px-3 py-2 w-full focus:outline-2 focus:outline-charcoal-600;
 }
 
