@@ -12,7 +12,7 @@ function App() {
       <Header />
       <Routes>
         <Route index element={<Home />} />
-        <Route path='menu' element={<Menu />} />
+        <Route path='menu/:category?' element={<Menu />} />
         <Route path='contact' element={<Contact />} />
       </Routes>
     </BrowserRouter>
