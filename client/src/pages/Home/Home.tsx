@@ -1,6 +1,7 @@
 import { useState } from "react";
 import ReservationForm from "../../components/ReservationForm";
 import { IoIosArrowRoundForward } from "react-icons/io";
+import MenuCard from "../../components/MenuCard";
 
 function Home() {
   const [displayForm, setDisplayForm] = useState<boolean>(false);
@@ -10,7 +11,7 @@ function Home() {
   }
 
   return (
-    <div className="bg-white">
+    <div className="bg-white snap-y snap-proximity">
       <section className="flex px-2 py-20 lg:py-25 md:px-12 lg:px-24 bg-gray-400 bg-[url('/hero-bg-mobile.png')] md:bg-[url('/hero-bg.png')] bg-cover bg-no-repeat">
         <div className="md:flex-2/3 lg:flex-1/2">
           <h1 className="text-7xl scale-y-125 my-8 font-head font-extralight uppercase text-white">
@@ -27,8 +28,18 @@ function Home() {
         <div className="hidden md:block md:flex-1/3 lg:flex-1/2"></div>
       </section>
 
+      <section className="bg-white px-2 py-10 md:px-12 lg:px-24">
+        <h2 className="uppercase font-head text-4xl text-center mb-4">menu</h2>
+        <div className="grid grid-cols-1 md:grid-cols-4 md:grid-rows-[300px_1fr] gap-2">
+          <MenuCard category="steaks" route="menu/steaks" thumb="steak-thumb.jpg" />
+          <MenuCard category="burgers" route="menu/burgers" thumb="burger-thumb.jpg" />
+          <MenuCard category="sides" route="menu/sides" thumb="sides-thumb.jpg" />
+          <MenuCard category="drinks" route="menu/drinks" thumb="drinks-thumb.jpg" />
+        </div>
+      </section>
+
       { displayForm && (
-        <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center">
+        <div className="fixed top-0 left-0 h-full w-full flex items-center justify-center z-50">
           <ReservationForm displayFunc={hideForm} />
         </div>
       )}
