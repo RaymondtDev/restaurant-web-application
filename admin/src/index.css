@@ -1,1 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ephesis&display=swap');
 @import 'tailwindcss';
+
+@theme {
+  --color-charcoal-800: #1c1c1c;
+  --color-charcoal-700: #2c2c2c;
+  --color-charcoal-600: #3c3c3c;
+  --color-charcoal-500: #4c4c4c;
+  --color-charcoal-400: #5c5c5c;
+  --color-charcoal-300: #6c6c6c;
+  --color-charcoal-200: #7c7c7c;
+  --color-charcoal-100: #8c8c8c;
+  --font-head: "Cormorant", serif;
+  --font-body: "Monserrat", sans-serif;
+  --font-logo: "Ephesis", cursive;
+}
+
+body {
+  @apply font-body;
+}
