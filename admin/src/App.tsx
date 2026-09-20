@@ -4,9 +4,13 @@ import Dashboard from "./pages/Dashboard";
 import Menu from "./pages/Menu";
 import Reservations from "./pages/Reservations";
 import Users from "./pages/Users";
+import DisplayStateProvider from "./context/DisplayStateProvider";
+import { DisplayToastProvider } from "./context/DisplayToastProvider";
 
 function App() {
   return (
+    <DisplayToastProvider>
+    <DisplayStateProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />} >
@@ -17,6 +21,8 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </DisplayStateProvider>
+    </DisplayToastProvider>
   );
 }
 

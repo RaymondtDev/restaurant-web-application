@@ -8,9 +8,9 @@ function SidePanel() {
 
   const paths = [
     { to: '/', path: 'Dashboard', icon: <MdDashboard /> },
-    { to: 'menu', path: 'Menu', icon: <MdRestaurantMenu /> },
-    { to: 'reservations', path: 'Reservations', icon: <FaCalendarDay /> },
-    { to: 'users', path: 'Users', icon: <FaUsers /> }
+    { to: '/menu', path: 'Menu', icon: <MdRestaurantMenu /> },
+    { to: '/reservations', path: 'Reservations', icon: <FaCalendarDay /> },
+    { to: '/users', path: 'Users', icon: <FaUsers /> }
   ]
 
   return (
