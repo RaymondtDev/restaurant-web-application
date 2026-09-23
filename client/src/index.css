@@ -54,7 +54,7 @@ textarea {
 }
 
 img {
-  @apply w-full h-auto object-cover;
+  @apply w-full h-full object-cover;
 }
 
 table th, table td {
