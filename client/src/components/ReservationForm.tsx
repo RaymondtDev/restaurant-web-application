@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ChangeEvent, type ChangeEventHandler } from 'react';
+import { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import clsx from 'clsx';
 import { FaCheck, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import { MdRefresh, MdTableBar } from 'react-icons/md';
@@ -45,13 +45,11 @@ export default function ReservationForm({ displayFunc }: PropTypes) {
     occasion: '',
     specialRequest: ''
   })
-  const [timeSlots, setTimeSlots] = useState<string[] | null>(null);
-  const [timeSlot, setTimeSlot] = useState<string | null>(null);
+  
   const [selectedDate, setSelectedDate] = useState<Dayjs | null>(dayjs(new Date));
   const [step, setStep] = useState<number>(1);
   const [selectedTable, setSelectedTable] = useState<TableObject | null>(null);
   const [isScrolled, setIsScrolled] = useState<boolean>(false);
-  const [checkAvail, setCheckAvail] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
@@ -283,56 +281,22 @@ export default function ReservationForm({ displayFunc }: PropTypes) {
             <div className="flex flex-col">
               <p className="mb-1">Pick a Time</p>
               <div className="bg-charcoal-800 rounded-xl p-2 flex-1">
-                {timeSlots && timeSlots.length > 0 ? (
-                  <p>Placeholder</p>
-                ) : timeSlots && timeSlots.length < 1 ? (
-                  <p>no times available, please pick a different table of date</p>
-                ) : (
-                  <div className="flex items-center justify-center h-full py-8">
-                    <button className={
-                      clsx(
-                        "text-black bg-white rounded-full p-4 flex items-center justify-center cursor-pointer transition hover:scale-110 animation-pulse",
-                        {
-                          "pointer-events-none": !checkAvail
-                        }
-                      )
-                    }>
-                      <MdRefresh size={25} />
-                    </button>
-                  </div>
-                )}
+                <div className="flex items-center justify-center h-full py-8">
+                  <button className={
+                    clsx(
+                      "text-black bg-white rounded-full p-4 flex items-center justify-center cursor-pointer transition hover:scale-110 animation-pulse"
+                    )
+                  }>
+                    <MdRefresh size={25} />
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div> }
 
         { step === 3 && <div>
-          <table className='w-full table-fixed'>
-            <thead>
-              <tr className='bg-charcoal-100/50'>
-                <th className='text-start'></th>
-                <th className='text-start bg-charcoal-100/70'>Info</th>
-              </tr>
-            </thead>
-            <tbody className='[&>*:nth-child(even)]:bg-charcoal-100/10'>
-              <tr>
-                <td className='border-r border-dashed border-charcoal-700'>Name</td>
-                <td>{userData.name}</td>
-              </tr>
-              <tr>
-                <td className='border-r border-dashed border-charcoal-700'>Surname</td>
-                <td>{userData.surname}</td>
-              </tr>
-              <tr>
-                <td className='border-r border-dashed border-charcoal-700'>Email</td>
-                <td>{userData.email}</td>
-              </tr>
-              <tr>
-                <td className='border-r border-dashed border-charcoal-700'>Phone</td>
-                <td>{userData.phone}</td>
-              </tr>
-            </tbody>
-          </table>
+          
         </div> }
       </div>
 
