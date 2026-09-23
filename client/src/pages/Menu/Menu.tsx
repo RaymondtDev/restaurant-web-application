@@ -7,7 +7,6 @@ const categories: string[] = ['all', 'steaks', 'burgers', 'sides', 'drinks'];
 
 function Menu() {
   const [menuCategory, setMenuCategory] = useState<string | undefined>(undefined);
-  const [search, setSearch] = useState<string | null>(null);
   const { category } = useParams();
 
   useEffect(() => {
@@ -33,7 +32,6 @@ function Menu() {
           name="search"
           id="search"
           className="focus:outline-none py-2.5 w-full"
-          onChange={(e) => setSearch(e.target.value)}
         />
       </div>
       <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
