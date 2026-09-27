@@ -52,10 +52,10 @@ function Home() {
       <section className="bg-charcoal-800 px-2 py-10 md:px-12 lg:px-24">
         <p className="uppercase text-white text-sm mb-4">our menu</p>
         <div className="flex items-center justify-between">
-          <h2 className="uppercase font-head text-2xl mb-4 bg-white w-fit py-2 pl-6 pr-16 [clip-path:polygon(0_0,100%_0,calc(100%-30px)_100%,0_100%)]">Popular Dishes</h2>
+          <h2 className="uppercase font-head md:text-2xl mb-4 bg-white w-fit py-2 pl-6 pr-16 [clip-path:polygon(0_0,100%_0,calc(100%-30px)_100%,0_100%)]">Popular Dishes</h2>
           <Link to="menu">
             <div className="text-white flex items-center gap-2">
-              <p>View Full Menu</p>
+              <p className="text-sm md:text-md">View Full Menu</p>
               <FaArrowRight />
             </div>
           </Link>
