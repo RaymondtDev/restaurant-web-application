@@ -1,15 +1,25 @@
-import { Schema, Model } from "mongoose";
+import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
 
-const AdminSchema: Schema = new Schema({
+interface AdminType {
+  username: string,
+  passwordHash: string,
+  isSuperAdmin: boolean
+}
+interface AdminMethods {
+  setPassword(password: string): Promise<void>;
+  validatePassword(password: string): Promise<boolean>;
+}
+type AdminDocument = AdminType & AdminMethods;
+
+const AdminSchema = new Schema<AdminDocument>({
   username: { type: String, required: true, unique: true },
   passwordHash: { type: String, required: true },
-  isSuperAdmin: { type: Boolean, default: false },
-  isAdmin: { type: Boolean, default: true },
+  isSuperAdmin: { type: Boolean, default: false }
 });
 
 // schema method to set passwordHash
-AdminSchema.methods.setPassword = async function (password: string): Promise<void> {
+AdminSchema.methods.setPassword  = async function (password: string): Promise<void> {
   const saltRounds = 10;
   this.passwordHash = await bcrypt.hash(password, saltRounds);
 };
@@ -19,5 +29,5 @@ AdminSchema.methods.validatePassword = async function (password: string): Promis
   return await bcrypt.compare(password, this.passwordHash);
 };
 
-const Admin = new Model("Admin", AdminSchema);
+const Admin = model<AdminDocument>("Admin", AdminSchema);
 export default Admin;
