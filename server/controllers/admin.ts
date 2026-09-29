@@ -1,19 +1,52 @@
 import { Request, Response } from "express";
 import Admin from "../models/Admin";
 import JWT from "jsonwebtoken";
+import { ADMIN_ACCESS_TOKEN_SECRET_KEY, ADMIN_REFRESH_TOKEN_SECRET_KEY } from "../config/jwt";
+import { AdminPayload } from "../types/express";
 
 // controller for frontend admin refresh
 export const CheckAdmin = (req: Request, res: Response) => {
-  try {
-    // if admin not in request headers, return error
-    if (!req.admin) return res.status(404).json({ success: false, message: "Admin Not Found" });
+  const accessToken = req.cookies?.adminAccessToken;
+  const refreshToken = req.cookies?.adminRefreshToken;
 
-    // send admin info on successful refresh
-    return res.status(200).json({ success: true, admin: req.admin });
-    
+  if (!accessToken && !refreshToken) {
+    return res.status(401).json({
+      success: false,
+      message: "No admin session found"
+    });
+  }
+
+  if (accessToken) {
+    const decoded = JWT.verify(accessToken, ADMIN_ACCESS_TOKEN_SECRET_KEY) as AdminPayload;
+
+    req.admin = decoded;
+
+    return res.status(200).json({ success: true, admin: decoded });
+  }
+  if (!refreshToken) return res.status(401).json({ success: false, message: "Session expired. Please log in again." });
+
+  try {
+    const decoded = JWT.verify(refreshToken, ADMIN_REFRESH_TOKEN_SECRET_KEY) as AdminPayload;
+
+    const newAccessToken = JWT.sign(
+      { id: decoded.id, username: decoded.username, isSuperAdmin: decoded.isSuperAdmin },
+      ADMIN_ACCESS_TOKEN_SECRET_KEY,
+      { expiresIn: "24h" }
+    );
+
+    res.cookie("adminAccessToken", newAccessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 24 * 60 * 60 * 1000
+    });
+
+    req.admin = decoded;
+
+    res.status(200).json({ success: true, admin: decoded, accessTokenRefreshed: true });
   } catch (error) {
-    console.error("An Error Occurred When Validating Admin:", error);
-    return res.status(500).json({ message: "Check Admin Server Error", error });
+    console.error("An Error Occurred When Admin Refresh:", error);
+    res.status(403).json({ success: false, message: "Invalid or expired refresh token" });
   }
 }
 

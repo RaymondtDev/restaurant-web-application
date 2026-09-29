@@ -4,7 +4,7 @@ import { ADMIN_ACCESS_TOKEN_SECRET_KEY } from "../config/jwt";
 import { AdminPayload } from "../types/express";
 
 export function AuthenticateAdmin(req: Request, res: Response, next: NextFunction) {
-  const token = req.cookies.adminAccessToken;
+  const token = req.cookies?.adminAccessToken;
 
   if (!token) return res.status(401).json({ success: false, message: "Access Denied: No token provided" });
 
