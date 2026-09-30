@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { JwtPayload } from "jsonwebtoken";
 import JWT from "jsonwebtoken";
-import { USER_JWT_SECRET_KEY } from "../config/jwt";
+import { USER_ACCESS_TOKEN_SECRET_KEY } from "../config/jwt";
 
 export function UserAuthentication(req: Request, res: Response, next: NextFunction) {
   const token = req.cookies.userToken; // get token from request cookies
@@ -11,7 +11,7 @@ export function UserAuthentication(req: Request, res: Response, next: NextFuncti
 
   try {
     // verify jwt token and store payload in variable
-    const decoded: string | JwtPayload = JWT.verify(token, USER_JWT_SECRET_KEY);
+    const decoded: string | JwtPayload = JWT.verify(token, USER_ACCESS_TOKEN_SECRET_KEY);
 
     // pass jwt token to user request
     req.user = decoded;

@@ -52,9 +52,9 @@ export const CheckAdmin = (req: Request, res: Response) => {
 
 // create admin controller
 export const CreateAdmin = async (req: Request, res: Response) => {
-  const { username, password } = req.body as { username: string, password: string };
-
   try {
+    const { username, password } = req.body as { username: string, password: string };
+
     // return error if fields are empty on submition
     if (!username) return res.status(400).json({ message: "Username required" });
     if (!password) return res.status(400).json({ message: "Password required" });
@@ -68,7 +68,7 @@ export const CreateAdmin = async (req: Request, res: Response) => {
 
   } catch (error) {
     console.error("An Error Occurred When Creating Admin:", error);
-    res.status(500).json({ message: "Create Admin Server Error", error });
+    res.status(500).json({ message: "Create Admin Server Error", error: error });
   }
 }
 

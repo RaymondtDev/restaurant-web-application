@@ -1,17 +1,32 @@
-import { Schema, Model } from "mongoose";
+import { Schema, model } from "mongoose";
 
-const ProductSchema: Schema = new Schema({
-  name: { type: String, required: true },
+interface ProductType {
+  title: string,
+  description: string,
+  price: number,
+  thumbnail: {
+    url: string,
+    publicId: string
+  },
+  category: string,
+  createdAt: Date
+}
+
+const ProductSchema = new Schema<ProductType>({
+  title: { type: String, required: true },
   description: { type: String, required: true },
   price: { type: Number, required: true },
-  thumbnailUrl: { type: String, required: true },
-  imageUrls: [{ type: String }],
+  thumbnail: {
+    url: { type: String, required: true },
+    publicId: { type: String, required: true }
+  },
   category: {
     type: String,
-    enum: [ 'breakfast', 'starter', 'main', 'drink', 'side', 'extra', 'dessert' ],
+    enum: [ 'steaks', 'burgers', 'sides', 'drinks' ],
     required: true
   },
+  createdAt: { type: Date, default: Date.now() }
 });
 
-const Product = new Model("Product", ProductSchema);
+const Product = model<ProductType>("Product", ProductSchema);
 export default Product;
