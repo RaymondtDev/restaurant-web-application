@@ -26,7 +26,7 @@ const ProductSchema = new Schema<ProductType>({
     required: true
   },
   createdAt: { type: Date, default: Date.now() }
-});
+}, { timestamps: true });
 
 const Product = model<ProductType>("Product", ProductSchema);
 export default Product;
