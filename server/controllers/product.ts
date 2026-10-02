@@ -35,3 +35,32 @@ export const CreateProduct = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Product creation server error", error: error });
   }
 }
+
+export const GetProducts = async (req: Request, res: Response) => {
+  try {
+    const products = await Product.find();
+    res.status(200).json({ success: true, products });
+  } catch (error) {
+    console.error("An Error Occurred When Fetching Products:", error);
+    res.status(500).json({ message: "Product fetching server error", error: error });
+  }
+}
+
+export const DeleteProduct = async (req: Request, res: Response) => {
+  const { productId } = req.params as { productId: string };
+  try {
+    const product = await Product.findById(productId);
+
+    // check if product exists
+    if (!product) return res.status(404).json({ success: false, message: "Product not found" });
+
+    // delete product thumbnail from cloudinary
+    await cloudinary.uploader.destroy(product.thumbnail.publicId);
+    await product.deleteOne(); // delete product from database
+
+    res.status(200).json({ success: true, message: "Product deleted successfully" });
+  } catch (error) {
+    console.error("An Error Occurred When Deleting Product:", error);
+    res.status(500).json({ message: "Product deletion server error", error: error });
+  }
+}
