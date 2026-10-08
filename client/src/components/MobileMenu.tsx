@@ -3,9 +3,13 @@ import { useMobileState } from "../hooks/UseMobileState";
 import { BiFoodMenu } from "react-icons/bi";
 import clsx from "clsx";
 import { IoHomeOutline, IoMailOutline } from "react-icons/io5";
+import { useAuth } from "../hooks/UseAuth";
+import { FaRegUser } from "react-icons/fa6";
+import { MdLogin } from "react-icons/md";
 
 function MobileMenu() {
   const mobileState = useMobileState();
+  const authState = useAuth();
 
   return (
     <div className={
@@ -35,6 +39,21 @@ function MobileMenu() {
           <p>Contact</p>
         </div>
       </Link>
+      { authState?.isAuthenticated ? (
+        <Link to={'acount'}>
+          <div className="flex items-center gap-4 py-3">
+            <FaRegUser />
+            <p>Account</p>
+          </div>
+        </Link>
+      ) : (
+        <Link to={'login'}>
+          <div className="flex items-center gap-4 py-3">
+            <MdLogin />
+            <p>Login</p>
+          </div>
+        </Link>
+      )}
     </div>
   );
 }

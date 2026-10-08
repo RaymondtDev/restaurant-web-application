@@ -3,8 +3,10 @@ import Hamburger from "./Hamburger";
 import { FaRegUser } from "react-icons/fa6";
 import { Link } from "react-router";
 import MobileMenu from "./MobileMenu";
+import { useAuth } from "../hooks/UseAuth";
 
 function Header() {
+  const authState = useAuth();
 
   return (  
     <header className="bg-gray-50 py-2 md:py-0 px-4 md:px-12 lg:px-24 relative z-10">
@@ -17,9 +19,11 @@ function Header() {
           <Link to={'contact'} className="py-4 px-3 transition hover:-translate-y-0.5">Contact</Link>
 
           <div className="flex items-center justify-center gap-6 ml-8">
-            <div className="cursor-pointer transition hover:scale-110">
+            <Link to={authState?.isAuthenticated ? "account" : "login"}
+              className="cursor-pointer transition hover:scale-110"
+            >
               <FaRegUser size={17} />
-            </div>
+            </Link>
             <div className="cursor-pointer transition hover:scale-110">
               <FiShoppingCart size={17} />
             </div>
