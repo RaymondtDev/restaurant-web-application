@@ -16,12 +16,12 @@ function SidePanel() {
   return (
     <div>
       <h1 className="text-4xl font-logo font-extrabold -rotate-5 py-4 px-6">D'Joe</h1>
-      <nav className="font-head">
+      <nav>
         { paths.map(path => (
-          <Link to={path.to}>
+          <Link to={path.to} key={path.to}>
             <div className={
               clsx(
-                "text-xl flex items-center gap-4 p-4 transition hover:bg-charcoal-600",
+                "text-md flex items-center gap-4 p-4 transition hover:bg-charcoal-600",
                 {
                   "bg-charcoal-600": location.pathname === path.to
                 }
