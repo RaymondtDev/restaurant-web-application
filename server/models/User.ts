@@ -1,7 +1,26 @@
 import { Schema, Model } from "mongoose";
 import bcrypt from "bcrypt";
 
-const UserSchema: Schema = new Schema({
+interface UserType {
+  name: string,
+  surname: string,
+  username: string,
+  email: string,
+  phone: string,
+  passwordHash: string,
+  reservations: string[],
+  cart: string[],
+  orderHistory: string[]
+}
+
+interface UserMethods {
+  setPassword: (password: string) => Promise<void>,
+  validatePassword: (password: string) => Promise<boolean>
+}
+
+type UserDocument = UserType & UserMethods;
+
+const UserSchema = new Schema<UserDocument>({
   name: { type: String, required: true },
   surname: { type: String, required: true },
   username: { type: String, required: true, unique: true },
