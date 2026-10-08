@@ -7,11 +7,19 @@ export interface AdminPayload {
   isSuperAdmin: boolean
 }
 
+export interface UserPayload {
+  id: string,
+  name: string,
+  surname: string,
+  username: string,
+  cart: string[] | null
+}
+
 declare global {
   namespace Express {
     interface Request {
       admin?: AdminPayload,
-      user?: string | JwtPayload
+      user?: UserPayload
     }
   }
 }
