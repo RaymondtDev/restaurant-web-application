@@ -7,7 +7,7 @@ function ProtectedRoutes() {
 
   if (authState?.loading) return <div>Loading...</div>;
 
-  // if (!authState?.isAuthenticated) return <Navigate to="/login" state={{ from: location }} replace />;
+  if (!authState?.isAuthenticated) return <Navigate to="/login" state={{ from: location }} replace />;
 
   return <Outlet />;
 }
