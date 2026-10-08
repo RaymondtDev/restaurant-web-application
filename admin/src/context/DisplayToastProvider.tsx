@@ -9,29 +9,29 @@ interface DisplayToastProviderType {
 }
 
 export interface ToastType {
-  type: 'success' | 'error' | null,
+  success: boolean | null,
   message: string | null
 }
 
 export function DisplayToastProvider({ children }: DisplayToastProviderType) {
   const [display, setDisplay] = useState<boolean>(false);
   const [toast, setToast] = useState<ToastType | null>({
-    type: null,
-    message: null
+    success: null,
+    message: null,
   });
 
-  const displayToast: ( type: 'success' | 'error', message: string ) => void = ( type, message ) => {
+  const displayToast: ( success: boolean, message: string ) => void = ( success, message ) => {
     setDisplay(true)
 
     setToast(() => ({
-      type,
+      success,
       message
     }))
 
     setTimeout(() => {
       setDisplay(false);
       setToast(() => ({
-        type: null,
+        success: null,
         message: null
       }))
     }, 3000)
@@ -53,17 +53,17 @@ export function DisplayToastProvider({ children }: DisplayToastProviderType) {
             clsx(
               "fixed flex items-center gap-4 top-0 right-0 m-8 bg-white py-4 px-6 shadow-md rounded-md",
               {
-                "outline-2 outline-green-500": toast?.type === 'success',
-                "outline-2 outline-red-500": toast?.type === 'error'
+                "outline-2 outline-green-500": toast?.success,
+                "outline-2 outline-red-500": !toast?.success
               }
             )
           }
         >
-          { toast?.type === 'success' ? (
+          { toast?.success ? (
             <span className="p-1.5 bg-green-500 rounded-full text-white">
               <FaCheck size={10} />
             </span>
-          ) : toast?.type === 'error' && (
+          ) : !toast?.success && (
             <span className="p-1.5 bg-red-500 rounded-full text-white">
               <ImCross size={10} />
             </span>

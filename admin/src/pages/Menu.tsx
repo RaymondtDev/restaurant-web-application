@@ -16,7 +16,7 @@ function Menu() {
         Add New
       </button>
       <button
-        onClick={() =>toastState?.displayToast('success', 'Sucessfully Created Product')}
+        onClick={() =>toastState?.displayToast(true, 'Sucessfully Created Product')}
       >
         Toast
       </button>
