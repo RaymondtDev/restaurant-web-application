@@ -154,3 +154,34 @@ export const UserLogin = async (req: Request, res: Response) => {
     res.status(500).json({ success: false, message: "Failed to log in user" });
   }
 }
+
+export const UserLogout = async (req: Request, res: Response) => {
+  try {
+    res.clearCookie("userAccessToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax"
+    });
+    res.clearCookie("userRefreshToken", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax"
+    });
+
+    res.status(200).json({ success: true, message: "Logout successful" });
+  } catch (error) {
+    console.error("An Error Occurred When User Logout:", error);
+    return res.status(500).json({ message: "Logout User server error", error })
+  }
+}
+
+export const GetUsers = async (req: Request, res: Response) => {
+  try {
+    const users = await User.find();
+
+    res.status(200).json({ success: true, users });
+  } catch (error) {
+    console.error("An Error Occured When Fetching Users:", error);
+    res.status(500).json({ message: "Failed to fetch users", error: error });
+  }
+}
