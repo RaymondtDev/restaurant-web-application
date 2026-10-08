@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express, { Response, Request } from "express";
+import { rateLimit } from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import { connectDB } from "../config/db";
 import adminRoutes from "../routes/admin";
@@ -8,6 +9,15 @@ import userRoutes from "../routes/user";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 100, // limit to 100 request per 15-minute window
+  message: "Too many request from this IP. Please try again later.",
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+});
+app.use(limiter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
