@@ -1,9 +1,9 @@
-import { createContext } from "react";
+import { createContext, type Dispatch, type SetStateAction } from "react";
 
 interface MobileStateContextType {
   displayMenu: boolean,
   handleDisplayMenu: () => void
-  setDisplayMenu: (value: boolean) => void
+  setDisplayMenu: Dispatch<SetStateAction<boolean>>
 }
 
 export const MobileStateContext = createContext<MobileStateContextType | undefined>(undefined);

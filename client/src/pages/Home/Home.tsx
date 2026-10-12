@@ -54,7 +54,7 @@ function Home() {
         <div className="flex items-center justify-between">
           <h2 className="uppercase font-head md:text-2xl mb-4 bg-white w-fit py-2 pl-6 pr-16 [clip-path:polygon(0_0,100%_0,calc(100%-30px)_100%,0_100%)]">Popular Dishes</h2>
           <Link to="menu">
-            <div className="text-white flex items-center gap-2">
+            <div className="text-white flex items-center gap-2 pb-4">
               <p className="text-md md:text-md">View Full Menu</p>
               <FaArrowRight />
             </div>
