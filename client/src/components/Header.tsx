@@ -1,4 +1,4 @@
-import { FiShoppingCart } from "react-icons/fi";
+import { FiShoppingBag } from "react-icons/fi";
 import Hamburger from "./Hamburger";
 import { FaRegUser } from "react-icons/fa6";
 import { Link } from "react-router";
@@ -25,12 +25,12 @@ function Header() {
               <FaRegUser size={17} />
             </Link>
             <div className="cursor-pointer transition hover:scale-110">
-              <FiShoppingCart size={17} />
+              <FiShoppingBag size={17} />
             </div>
           </div>
         </nav>
         <div className="flex items-center justify-center md:hidden cursor-pointer">
-          <FiShoppingCart size={25} />
+          <FiShoppingBag size={25} />
         </div>
       </div>
 

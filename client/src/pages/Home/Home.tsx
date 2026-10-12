@@ -49,18 +49,18 @@ function Home() {
         </div>
       </section>
 
-      <section className="bg-charcoal-800 px-2 py-10 md:px-12 lg:px-24">
+      <section className="bg-charcoal-800 px-2 py-5 md:py-10 md:px-12 lg:px-24">
         <p className="uppercase text-white text-sm mb-4">our menu</p>
         <div className="flex items-center justify-between">
           <h2 className="uppercase font-head md:text-2xl mb-4 bg-white w-fit py-2 pl-6 pr-16 [clip-path:polygon(0_0,100%_0,calc(100%-30px)_100%,0_100%)]">Popular Dishes</h2>
           <Link to="menu">
             <div className="text-white flex items-center gap-2">
-              <p className="text-sm md:text-md">View Full Menu</p>
+              <p className="text-md md:text-md">View Full Menu</p>
               <FaArrowRight />
             </div>
           </Link>
         </div>
-        <div className="grid grid-cols-1 grid-rows-1 md:grid-rows-[auto,300px_1fr_1fr] md:grid-cols-2 xl:grid-cols-4 gap-y-2 xl:gap-y-0 md:gap-x-2">
+        <div className="grid grid-cols-2 grid-rows-[auto,300px_1fr_1fr] xl:grid-cols-4 gap-y-2 xl:gap-y-0 gap-x-2">
           { menu.map(item => (
             <ProductCard key={item.id} item={item} />
           ))}
