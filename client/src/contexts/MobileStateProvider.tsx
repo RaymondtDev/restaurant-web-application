@@ -16,7 +16,8 @@ export function MobileStateProvider({children}: MobileStateProviderProps) {
     <MobileStateContext.Provider
       value={{
         displayMenu,
-        handleDisplayMenu
+        handleDisplayMenu,
+        setDisplayMenu
       }}
     >
       {children}
