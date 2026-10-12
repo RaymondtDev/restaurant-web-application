@@ -20,7 +20,7 @@ function ProductCard({ item }: ItemType) {
         </div>
       </figure>
       <div className="px-2 pt-4">
-        <h3 className="font-extrabold font-head text-xl max-w-full truncate">{item.title}</h3>
+        <h3 className="font-extrabold font-head text-xl max-w-full w-full truncate md:text-wrap">{item.title}</h3>
         <small>
           {item.description}
         </small>
