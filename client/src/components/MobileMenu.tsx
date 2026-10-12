@@ -33,7 +33,7 @@ function MobileMenu() {
   return (
     <div ref={menuElement} className={
       clsx(
-        "absolute bg-white shadow-md p-2 rounded-lg top-full mt-2 font-head text-xl pl-4 w-3/4",
+        "absolute bg-white shadow-md p-2 rounded-lg top-full mt-2 font-head text-xl pl-4 w-1/2 z-10",
         {
           "flex flex-col": mobileState?.displayMenu,
           "hidden": !mobileState?.displayMenu

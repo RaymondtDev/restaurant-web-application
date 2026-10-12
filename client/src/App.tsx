@@ -6,9 +6,11 @@ import Menu from './pages/Menu/Menu';
 import Contact from './pages/Contact/Contact';
 import Account from './pages/Account/Account';
 import Login from './pages/Account/Login';
+import CartDisplayStateProvider from './contexts/CartDisplayStateProvider';
 
 function App() {
   return (
+    <CartDisplayStateProvider>
     <MobileStateProvider>
     <BrowserRouter>
       <Header />
@@ -21,6 +23,7 @@ function App() {
       </Routes>
     </BrowserRouter>
     </MobileStateProvider>
+    </CartDisplayStateProvider>
   )
 }
 
