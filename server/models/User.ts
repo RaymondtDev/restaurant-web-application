@@ -1,4 +1,4 @@
-import { Schema, Model } from "mongoose";
+import { Schema, model } from "mongoose";
 import bcrypt from "bcrypt";
 
 interface UserType {
@@ -43,5 +43,5 @@ UserSchema.methods.validatePassword = async function (password: string): Promise
   return await bcrypt.compare(password, this.passwordHash);
 };
 
-const User = new Model("User", UserSchema);
+const User = model<UserDocument>("User", UserSchema);
 export default User;

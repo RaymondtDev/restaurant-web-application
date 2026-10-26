@@ -1,5 +1,6 @@
 import "dotenv/config";
 import express, { Response, Request } from "express";
+import cors from "cors";
 import { rateLimit } from "express-rate-limit";
 import cookieParser from "cookie-parser";
 import { connectDB } from "../config/db";
@@ -9,6 +10,12 @@ import userRoutes from "../routes/user";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+const allowedOrigins = [process.env.CLIENT_URL, process.env.ADMIN_URL] as string[];
+
+app.use(cors({
+  origin: "*",
+})); // allow all origins on development
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
