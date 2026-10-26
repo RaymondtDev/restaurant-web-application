@@ -4,12 +4,9 @@ import { FaRegUser } from "react-icons/fa6";
 import { Link } from "react-router";
 import MobileMenu from "./MobileMenu";
 import { useAuth } from "../hooks/UseAuth";
-import { UseCartDisplayState } from "../hooks/UseCartDisplayState";
-import CartModal from "./CartModal";
 
 function Header() {
   const authState = useAuth();
-  const cartState = UseCartDisplayState();
 
   return (  
     <header className="bg-gray-50 sticky top-0 z-10">
@@ -29,17 +26,16 @@ function Header() {
             >
               <FaRegUser size={17} />
             </Link>
-            <div className="cursor-pointer transition hover:scale-110" onClick={cartState?.handleDisplayCart}>
+            <Link to={'cart'} className="cursor-pointer transition hover:scale-110">
               <FiShoppingBag size={17} />
-            </div>
+            </Link>
           </div>
         </nav>
-        <div className="flex items-center justify-center md:hidden cursor-pointer" onClick={cartState?.handleDisplayCart}>
+        <Link to={'cart'} className="flex items-center justify-center md:hidden cursor-pointer">
           <FiShoppingBag size={25} />
-        </div>
+        </Link>
 
         <MobileMenu />
-        <CartModal />
       </div>
     </header>
   );

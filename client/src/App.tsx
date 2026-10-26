@@ -6,11 +6,10 @@ import Menu from './pages/Menu/Menu';
 import Contact from './pages/Contact/Contact';
 import Account from './pages/Account/Account';
 import Login from './pages/Account/Login';
-import CartDisplayStateProvider from './contexts/CartDisplayStateProvider';
+import Cart from './pages/Account/Cart';
 
 function App() {
   return (
-    <CartDisplayStateProvider>
     <MobileStateProvider>
     <BrowserRouter>
       <Header />
@@ -20,10 +19,11 @@ function App() {
         <Route path='contact' element={<Contact />} />
         <Route path='account' element={<Account />} />
         <Route path='login' element={<Login />} />
+        <Route path='cart' element={<Cart />} />
+        <Route path='*' element={<h1 className='text-center text-3xl font-bold mt-10'>404 - Page Not Found</h1>} />
       </Routes>
     </BrowserRouter>
     </MobileStateProvider>
-    </CartDisplayStateProvider>
   )
 }
 
