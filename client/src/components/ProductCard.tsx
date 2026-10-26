@@ -1,4 +1,5 @@
 import { FaPlus, FaStar } from "react-icons/fa6";
+import { useCart } from "../hooks/UseCart";
 
 interface ItemType {
   item: { 
@@ -11,6 +12,8 @@ interface ItemType {
 }
 
 function ProductCard({ item }: ItemType) {
+  const addToCart = useCart((state) => state.addToCart);
+
   return (
     <div className="row-span-1 md:row-span-3 md:grid md:grid-rows-subgrid bg-white overflow-hidden">
       <figure className="h-45 md:h-full md:max-h-75 overflow-hidden relative">
@@ -27,7 +30,7 @@ function ProductCard({ item }: ItemType) {
       </div>
       <div className="p-2 mt-2 flex items-center justify-between">
         <span className="font-bold">R {item.price}</span>
-        <button className="p-2 bg-charcoal-800 rounded-full text-white w-fit cursor-pointer transition hover:scale-110">
+        <button className="p-2 bg-charcoal-800 rounded-full text-white w-fit cursor-pointer transition hover:scale-110" onClick={() => addToCart(item)}>
           <FaPlus size={15} />
         </button>
       </div>
