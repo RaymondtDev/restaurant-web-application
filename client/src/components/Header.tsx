@@ -8,10 +8,10 @@ import { useCart } from "../hooks/UseCart";
 
 function Header() {
   const authState = useAuth();
-  const cart = useCart((state) => state.cart);
+  const totalItems = useCart((state) => state.totalItems);
 
   return (  
-    <header className="bg-gray-50 sticky top-0 z-10">
+    <header className="bg-white sticky top-0 z-10">
       <div className="flex items-center justify-between relative py-2 md:py-0 px-4 md:px-12 lg:px-24">
         <Hamburger />
         <Link to={'/'}>
@@ -31,7 +31,7 @@ function Header() {
             <Link to={'cart'} className="cursor-pointer transition hover:scale-110 relative">
               <FiShoppingBag size={17} />
               <div className="bg-charcoal-800 text-white absolute bottom-3/4 left-full rounded-full w-5 aspect-square flex items-center justify-center p-0 font-body text-xs">
-                {cart.length}
+                {totalItems}
               </div>
             </Link>
           </div>
@@ -39,7 +39,7 @@ function Header() {
         <Link to={'cart'} className="flex items-center justify-center md:hidden cursor-pointer relative">
           <FiShoppingBag size={25} className="mr-4"/>
           <div className="bg-charcoal-800 text-white absolute bottom-1/2 left-3/5 rounded-full w-5 aspect-square flex items-center justify-center p-0 font-body text-xs">
-            {cart.length}
+            {totalItems}
           </div>
         </Link>
 

@@ -22,8 +22,10 @@ interface CartState {
   clearCart: () => void;
 }
 
+const cartFromLocalStorage = localStorage.getItem("cart") as string;
+
 export const useCart = create<CartState>((set, get) => ({
-  cart: [],
+  cart:  JSON.parse(cartFromLocalStorage),
   totalItems: 0,
   totalPrice: 0,
 
