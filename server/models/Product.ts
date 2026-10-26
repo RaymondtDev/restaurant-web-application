@@ -3,6 +3,7 @@ import { Schema, model } from "mongoose";
 interface ProductType {
   title: string,
   description: string,
+  popular: boolean,
   price: number,
   thumbnail: {
     url: string,
@@ -15,6 +16,7 @@ interface ProductType {
 const ProductSchema = new Schema<ProductType>({
   title: { type: String, required: true },
   description: { type: String, required: true },
+  popular: { type: Boolean, default: false },
   price: { type: Number, required: true },
   thumbnail: {
     url: { type: String, required: true },
