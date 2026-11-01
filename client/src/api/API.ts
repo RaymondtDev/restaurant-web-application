@@ -1,17 +1,17 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: import.meta.env.NODE_ENV === "production" ? import.meta.env.VITE_API_URL : "http://localhost:3000/api/v1/user/",
+  baseURL: import.meta.env.NODE_ENV === "production" ? import.meta.env.API_URL : "http://localhost:3000/api/v1/",
 });
 
 export const UserAuth = () =>
-  API.get("check", { withCredentials: true });
+  API.get("user/check", { withCredentials: true });
 
 export const UserLogin = (username: string, password: string) =>
-  API.post("login", { username, password }, { withCredentials: true });
+  API.post("user/login", { username, password }, { withCredentials: true });
 
 export const UserLogout = () =>
-  API.post("logout", {}, { withCredentials: true });
+  API.post("user/logout", {}, { withCredentials: true });
 
 export const UserRegister = (
   name: string,
@@ -22,7 +22,9 @@ export const UserRegister = (
   password: string
 ) =>
   API.post(
-    "register",
+    "user/register",
     { name, surname, username, email, phone, password },
     { withCredentials: true }
   );
+
+export const GetProducts = () => API.get("products")

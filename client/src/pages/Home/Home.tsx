@@ -1,18 +1,46 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ReservationForm from "../../components/ReservationForm";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import MenuCard from "../../components/MenuCard";
-import { menu } from "../../utils/MOCK_DATA";
+// import { menu } from "../../utils/MOCK_DATA";
 import ProductCard from "../../components/ProductCard";
 import { Link } from "react-router";
 import { FaArrowRight } from "react-icons/fa6";
+import { GetProducts } from "../../api/API";
+
+export interface MenuItem {
+  thumbnail: {
+    url: string,
+    publicId: string
+  },
+  _id: string,
+  title: string,
+  description: string,
+  popular: boolean,
+  price: number,
+  category: string
+}
 
 function Home() {
   const [displayForm, setDisplayForm] = useState<boolean>(false);
+  const [apiMenu, setApiMenu] = useState<MenuItem[] | null>(null);
 
   const hideForm: () => void = () => {
     setDisplayForm(false);
   }
+
+  useEffect(() => {
+    const fetchProducts = async() => {
+      try {
+        const { data } = await GetProducts();
+        setApiMenu(data.products);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchProducts();
+  }, [])
 
   return (
     <div className="bg-white snap-y snap-proximity">
@@ -61,8 +89,8 @@ function Home() {
           </Link>
         </div>
         <div className="grid grid-cols-2 grid-rows-[auto,300px_1fr_1fr] xl:grid-cols-4 gap-y-2 xl:gap-y-0 gap-x-2">
-          { menu.map(item => (
-            <ProductCard key={item.id} item={item} />
+          { apiMenu?.map(item => (
+            <ProductCard key={item._id} item={item} />
           ))}
         </div>
       </section>
