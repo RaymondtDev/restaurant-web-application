@@ -6,8 +6,8 @@ import { VerifySuperAdmin } from "../middleware/VerifyIsSuperAdmin";
 
 const router = express.Router();
 
-router.get("/", AuthenticateAdmin, GetProducts);
+router.get("/", GetProducts);
 router.post("/", AuthenticateAdmin, upload.single("thumbnail"), CreateProduct);
-router.delete("/:productId", AuthenticateAdmin, VerifySuperAdmin, DeleteProduct);
+router.delete("/", AuthenticateAdmin, DeleteProduct);
 
 export default router;

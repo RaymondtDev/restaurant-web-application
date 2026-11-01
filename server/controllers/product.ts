@@ -47,7 +47,7 @@ export const GetProducts = async (req: Request, res: Response) => {
 }
 
 export const DeleteProduct = async (req: Request, res: Response) => {
-  const { productId } = req.params as { productId: string };
+  const { productId } = req.query as { productId: string };
   try {
     const product = await Product.findById(productId);
 
