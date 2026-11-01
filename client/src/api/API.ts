@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: import.meta.env.NODE_ENV === "production" ? import.meta.env.API_URL : "http://localhost:3000/api/v1/",
+  baseURL: import.meta.env.API_URL,
 });
 
 export const UserAuth = () =>
