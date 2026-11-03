@@ -7,6 +7,7 @@ import ProductCard from "../../components/ProductCard";
 import { Link } from "react-router";
 import { FaArrowRight } from "react-icons/fa6";
 import { GetProducts } from "../../api/API";
+import MenuSectionLoader from "../../components/MenuSectionLoader";
 
 export interface MenuItem {
   thumbnail: {
@@ -24,6 +25,7 @@ export interface MenuItem {
 function Home() {
   const [displayForm, setDisplayForm] = useState<boolean>(false);
   const [apiMenu, setApiMenu] = useState<MenuItem[] | null>(null);
+  const [menuSectionLoading, setMenuSectionLoading] = useState<boolean>(true);
 
   const hideForm: () => void = () => {
     setDisplayForm(false);
@@ -36,6 +38,8 @@ function Home() {
         setApiMenu(data.products);
       } catch (error) {
         console.error(error);
+      } finally {
+        setMenuSectionLoading(false);
       }
     }
 
@@ -89,9 +93,13 @@ function Home() {
           </Link>
         </div>
         <div className="grid grid-cols-2 grid-rows-[auto,300px_1fr_1fr] xl:grid-cols-4 gap-y-2 xl:gap-y-0 gap-x-2">
-          { apiMenu?.map(item => (
-            <ProductCard key={item._id} item={item} />
-          ))}
+          { menuSectionLoading ? (
+            <MenuSectionLoader />
+          ) : (
+            apiMenu?.map(item => (
+              <ProductCard key={item._id} item={item} />
+            ))
+          )}
         </div>
       </section>
 

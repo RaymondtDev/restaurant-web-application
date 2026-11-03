@@ -11,7 +11,7 @@ function ProductCard({ item }: ProductCardProps) {
 
   return (
     <div className="row-span-1 md:row-span-3 md:grid md:grid-rows-subgrid bg-white overflow-hidden">
-      <figure className="h-45 md:h-full md:max-h-75 overflow-hidden relative">
+      <figure className="h-45 md:h-75 overflow-hidden relative">
         <img src={item.thumbnail.url} alt="menu item thumbail" />
         <div className="absolute top-4 right-4 text-yellow-300">
           <FaStar size={20} />
