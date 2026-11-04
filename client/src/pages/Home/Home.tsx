@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ReservationForm from "../../components/ReservationForm";
-import { IoIosArrowRoundForward } from "react-icons/io";
+import { BsForkKnife } from "react-icons/bs";
 import MenuCard from "../../components/MenuCard";
 // import { menu } from "../../utils/MOCK_DATA";
 import ProductCard from "../../components/ProductCard";
@@ -8,6 +8,7 @@ import { Link } from "react-router";
 import { FaArrowRight } from "react-icons/fa6";
 import { GetProducts } from "../../api/API";
 import MenuSectionLoader from "../../components/MenuSectionLoader";
+import { FaCalendarCheck } from "react-icons/fa6";
 
 export interface MenuItem {
   thumbnail: {
@@ -58,13 +59,14 @@ function Home() {
           </p>
           <div className="flex items-center gap-4">
             <Link to="menu">
-              <button  className="flex items-center gap-2 py-4 px-6 bg-white rounded-md cursor-pointer transition hover:scale-105">
-                View Our Menu
+              <button  className="flex items-center gap-2 py-4 px-6 font-bold bg-white rounded-md cursor-pointer transition hover:scale-105">
+                <BsForkKnife size={20} />
+                Explore Menu
               </button>
             </Link>
-            <button className="text-white flex items-center gap-2 py-3.5 px-6 border-2 border-white rounded-md cursor-pointer transition hover:scale-105" onClick={() => setDisplayForm(true)}>
-              Reserve A Table
-              <IoIosArrowRoundForward size={25} />
+            <button className="text-white font-bold flex items-center gap-2 py-3.5 px-6 border-2 border-white rounded-md cursor-pointer transition hover:scale-105" onClick={() => setDisplayForm(true)}>
+              <FaCalendarCheck size={20} />
+              Book A Table
             </button>
           </div>
         </div>

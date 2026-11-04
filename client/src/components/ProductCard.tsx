@@ -1,5 +1,5 @@
 import { FaPlus, FaStar } from "react-icons/fa6";
-// import { useCart } from "../hooks/UseCart";
+import { useCart } from "../hooks/UseCart";
 import type { MenuItem } from "../pages/Home/Home";
 
 interface ProductCardProps {
@@ -7,7 +7,7 @@ interface ProductCardProps {
 }
 
 function ProductCard({ item }: ProductCardProps) {
-  // const addToCart = useCart((state) => state.addToCart);
+  const addToCart = useCart((state) => state.addToCart);
 
   return (
     <div className="row-span-1 md:row-span-3 md:grid md:grid-rows-subgrid bg-white overflow-hidden">
@@ -18,14 +18,14 @@ function ProductCard({ item }: ProductCardProps) {
         </div>
       </figure>
       <div className="px-2 pt-4">
-        <h3 className="font-extrabold font-head text-xl max-w-full w-full truncate md:text-wrap">{item.title}</h3>
-        <small>
+        <h3 className="capitalize font-extrabold font-head text-xl max-w-full w-full truncate md:text-wrap">{item.title}</h3>
+        <small className="line-clamp-2 md:line-clamp-3 text-gray-700 capitalize">
           {item.description}
         </small>
       </div>
       <div className="p-2 mt-2 flex items-center justify-between">
         <span className="font-bold">R {item.price}</span>
-        <button className="p-2 bg-charcoal-800 rounded-full text-white w-fit cursor-pointer transition hover:scale-110">
+        <button className="p-2 bg-charcoal-800 rounded-full text-white w-fit cursor-pointer transition hover:scale-110" onClick={() => addToCart(item)}>
           <FaPlus size={15} />
         </button>
       </div>

@@ -1,42 +1,33 @@
 import { create } from "zustand";
+import type { MenuItem } from "../pages/Home/Home";
 
-interface ItemType {
-  id: number;
-  thumb: string;
-  title: string;
-  price: number;
-  description: string
-}
-
-export interface CartItem extends ItemType {
+export interface CartItemState extends MenuItem {
   quantity: number;
 }
 
 interface CartState {
-  cart: CartItem[];
+  cart: CartItemState[];
   totalItems: number;
   totalPrice: number;
-  addToCart: (product: ItemType) => void;
-  removeFromCart: (productId: number) => void;
-  updateQuantity: (productId: number, quantity: number) => void;
+  addToCart: (product: MenuItem) => void;
+  removeFromCart: (productId: string) => void;
+  updateQuantity: (productId: string, quantity: number) => void;
   clearCart: () => void;
 }
 
-const cartFromLocalStorage = localStorage.getItem("cart") as string;
-
 export const useCart = create<CartState>((set, get) => ({
-  cart:  JSON.parse(cartFromLocalStorage),
+  cart:  [],
   totalItems: 0,
   totalPrice: 0,
 
   addToCart: (product) => {
     const currentCart = get().cart;
-    const existingItem = currentCart.find((item) => item.id === product.id);
+    const existingItem = currentCart.find((item) => item._id === product._id);
 
-    let updatedCart: CartItem[];
+    let updatedCart: CartItemState[];
 
     if (existingItem) {
-      updatedCart = currentCart.map((item) => item.id === product.id ? { ...item, quantity: item.quantity + 1 } : item);
+      updatedCart = currentCart.map((item) => item._id === product._id ? { ...item, quantity: item.quantity + 1 } : item);
     } else {
       updatedCart = [...currentCart, { ...product, quantity: 1 }];
     }
@@ -50,12 +41,12 @@ export const useCart = create<CartState>((set, get) => ({
 
   removeFromCart: (productId) => {
     const currentCart = get().cart;
-    const itemToRemove = currentCart.find((item) => item.id === productId);
+    const itemToRemove = currentCart.find((item) => item._id === productId);
 
     if (!itemToRemove) return;
 
     set({
-      cart: currentCart.filter((item) => item.id !== productId),
+      cart: currentCart.filter((item) => item._id !== productId),
       totalItems: get().totalItems - itemToRemove.quantity,
       totalPrice: get().totalPrice - (itemToRemove.price * itemToRemove.quantity),
     })
@@ -68,7 +59,7 @@ export const useCart = create<CartState>((set, get) => ({
     }
 
     const currentCart = get().cart;
-    const updatedCart = currentCart.map((item) => item.id === productId ? { ...item, quantity: newQuantity } : item);
+    const updatedCart = currentCart.map((item) => item._id === productId ? { ...item, quantity: newQuantity } : item);
 
     const totalItems = updatedCart.reduce((acc, item) => acc + item.quantity, 0);
     const totalPrice = updatedCart.reduce((acc, item) => acc + (item.price * item.quantity), 0);

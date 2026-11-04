@@ -28,7 +28,7 @@ function Cart() {
         {cart.length > 0 ? (
           <div className="grid grid-cols-[auto_1fr_auto_auto] gap-y-2 py-2">
             {cart.map((item) => (
-              <CartItem key={item.id} item={item} />
+              <CartItem key={item._id} item={item} />
             ))}
           </div>
         ) : (

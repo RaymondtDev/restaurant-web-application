@@ -1,32 +1,26 @@
 import { useCart } from "../hooks/UseCart";
 import { GoPlus } from "react-icons/go";
 import { IoRemoveSharp } from "react-icons/io5";
+import type { CartItemState } from "../hooks/UseCart";
 
-interface ItemType {
-  item: { 
-    id: number,
-    title: string,
-    description: string,
-    thumb: string,
-    price: number,
-    quantity: number
-  }
+interface CartItemType {
+  item: CartItemState;
 }
 
-function CartItem({ item }: ItemType) {
+function CartItem({ item }: CartItemType) {
   const cartState = useCart((state) => state)
 
   return (
-    <div key={item.id} className="grid col-span-4 grid-cols-subgrid py-4">
+    <div key={item._id} className="grid col-span-4 grid-cols-subgrid p-1 shadow-sm rounded-md bg-white">
       <figure className="size-15">
-        <img src={item.thumb} alt="menu item thumbnail" />
+        <img src={item.thumbnail.url} alt="menu item thumbnail" />
       </figure>
-      <p className="px-1.5 md:px-6 truncate my-auto">{item.title}</p>
+      <p className="px-1.5 md:px-6 truncate my-auto capitalize">{item.title}</p>
       <div className="flex items-center px-2.5 md:px-6">
         <button
           className="cursor-pointer transition hover:scale-101"
           onClick={() =>
-            cartState.updateQuantity(item.id, item.quantity - 1)
+            cartState.updateQuantity(item._id, item.quantity - 1)
           }
         >
           <IoRemoveSharp />
@@ -35,7 +29,7 @@ function CartItem({ item }: ItemType) {
         <button
           className="cursor-pointer transition hover:scale-101"
           onClick={() =>
-            cartState.updateQuantity(item.id, item.quantity + 1)
+            cartState.updateQuantity(item._id, item.quantity + 1)
           }
         >
           <GoPlus />
