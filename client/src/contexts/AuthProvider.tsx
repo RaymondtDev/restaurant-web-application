@@ -41,6 +41,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (data.success) {
         login(username, password);
+        alert("Registration successful! You are now logged in.");
       }
     } catch (error) {
       console.error("Error registering user:", error);
@@ -57,6 +58,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       if (data.success) {
         setUser(data.user);
         setIsAuthenticated(true);
+        alert("Login successful!");
       }
     } catch (error) {
       console.error("Error during login:", error);

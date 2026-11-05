@@ -1,16 +1,22 @@
 import { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { Link } from "react-router";
+import { useAuth } from "../../hooks/UseAuth";
 
 function Register() {
-  const [email, setEmail] = useState<string | null>(null);
-  const [password, setPassword] = useState<string | null>(null);
+  const [name, setName] = useState<string>("");
+  const [surname, setSurname] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const authState = useAuth();
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
-  }
+    authState?.register(name, surname, username, email, phone, password);
+  };
 
   return (
     <section className="bg-[url('/accounts-page-bg.jpg')] bg-cover bg-no-repeat px-2 md:px-12 lg:px-24 h-screen flex items-center justify-center">
@@ -23,37 +29,69 @@ function Register() {
             Your home of delicious steakhouse cuisine
           </p>
         </div>
-        <div className="bg-white p-4 md:p-10 rounded-sm shadow-md h-full w-full lg:flex-2/3">
-          <Link to="/" className="flex items-center gap-2 mb-5 text-gray-500 hover:text-gray-700 transition">
+
+        <div className="bg-white p-4 md:p-10 rounded-sm shadow-md h-full w-full lg:flex-2/3 xl:rounded-tl-xl xl:rounded-bl-xl">
+          <Link
+            to="/"
+            className="flex items-center gap-2 mb-5 text-gray-500 hover:text-gray-700 transition"
+          >
             <BiArrowBack />
             Back to Home
           </Link>
           <h2 className="text-xl font-semibold mb-5 capitalize">
             create an account
           </h2>
-          <form
-            className="flex flex-col gap-4"
-            onSubmit={handleSubmit}
-          >
-            <div className="flex flex-col md:flex-row md:gap-2">
-              <input type="text" name="name" id="name" placeholder="Name" />
-              <input type="text" name="surname" id="surname" placeholder="Surname" />
+
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            <div className="flex flex-col md:flex-row gap-4">
+              <input
+                type="text"
+                name="name"
+                id="name"
+                placeholder="Name"
+                required
+                onChange={(e) => setName(e.target.value)}
+              />
+              <input
+                type="text"
+                name="surname"
+                id="surname"
+                placeholder="Surname"
+                required
+                onChange={(e) => setSurname(e.target.value)}
+              />
             </div>
-            <input type="text" name="username" id="username" placeholder="Username" />
+            <input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Username"
+              required
+              onChange={(e) => setUsername(e.target.value)}
+            />
             <input
               type="email"
               name="email"
               id="email"
               placeholder="Email"
+              required
               onChange={(e) => setEmail(e.target.value)}
             />
-            <input type="tel" name="phone" id="phone" placeholder="Phone Number" />
+            <input
+              type="tel"
+              name="phone"
+              id="phone"
+              placeholder="Phone Number"
+              required
+              onChange={(e) => setPhone(e.target.value)}
+            />
             <div className="flex items-center">
               <input
                 type="password"
                 name="password"
                 id="password"
                 placeholder="Password"
+                required
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
@@ -61,7 +99,7 @@ function Register() {
               type="submit"
               className="bg-charcoal-800 rounded-md py-4 text-white font-bold transition hover:scale-102 cursor-pointer"
             >
-              Register
+              {authState?.loading ? "Registering..." : "Register"}
             </button>
           </form>
           <p className="text-sm text-gray-500 mt-4">

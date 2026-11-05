@@ -22,7 +22,7 @@ export const UserRegister = (
   password: string
 ) =>
   API.post(
-    "user/register",
+    "user",
     { name, surname, username, email, phone, password },
     { withCredentials: true }
   );

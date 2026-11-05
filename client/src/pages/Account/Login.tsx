@@ -8,7 +8,7 @@ function Login() {
   const [email, setEmail] = useState<string | null>(null);
   const [password, setPassword] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("Email:", email);
     console.log("Password:", password);
@@ -25,7 +25,7 @@ function Login() {
             Your home of delicious steakhouse cuisine
           </p>
         </div>
-        <div className="bg-white p-4 md:p-10 rounded-sm shadow-md h-full w-full lg:flex-1/2">
+        <div className="bg-white p-4 md:p-10 rounded-sm shadow-md h-full w-full lg:flex-1/2 xl:rounded-tl-xl xl:rounded-bl-xl">
           <Link to="/" className="flex items-center gap-2 mb-5 text-gray-500 hover:text-gray-700 transition">
             <BiArrowBack />
             Back to Home

@@ -8,11 +8,13 @@ import Login from './pages/Account/Login';
 import Cart from './pages/Account/Cart';
 import IndexPage from './pages/IndexPage';
 import Register from './pages/Account/Register';
+import { AuthProvider } from './contexts/AuthProvider';
 
 function App() {
   return (
     <MobileStateProvider>
     <BrowserRouter>
+    <AuthProvider>
       <Routes>
         <Route path="/" element={<IndexPage />}>
           <Route index element={<Home />} />
@@ -25,6 +27,7 @@ function App() {
         <Route path='login' element={<Login />} />
         <Route path='register' element={<Register />} />
       </Routes>
+    </AuthProvider>
     </BrowserRouter>
     </MobileStateProvider>
   )
