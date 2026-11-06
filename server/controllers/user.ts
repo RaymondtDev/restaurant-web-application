@@ -17,7 +17,7 @@ export const CheckUser = async (req: Request, res: Response) => {
 
     req.user = decoded;
 
-    return res.status(400).json({ success: true, user: decoded });
+    return res.status(200).json({ success: true, user: decoded });
   }
   if (!refreshToken) return res.status(401).json({ success: false, message: "Session expired. Please log in again" });
 
