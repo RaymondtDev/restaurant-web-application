@@ -2,16 +2,18 @@ import { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Link } from "react-router";
+import { useAuth } from "../../hooks/UseAuth";
 
 function Login() {
   const [displayPassword, setDisplayPassword] = useState<boolean>(false);
-  const [email, setEmail] = useState<string | null>(null);
-  const [password, setPassword] = useState<string | null>(null);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
-  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+  const authState = useAuth();
+
+  const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", password);
+    authState?.login(email, password);
   }
 
   return (
@@ -42,6 +44,8 @@ function Login() {
               name="email"
               id="email"
               placeholder="Email"
+              required
+              autoComplete="true"
               onChange={(e) => setEmail(e.target.value)}
             />
             <div className="flex items-center">
@@ -50,6 +54,7 @@ function Login() {
                 name="password"
                 id="password"
                 placeholder="Password"
+                required
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button

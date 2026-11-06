@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const { data } = await UserRegister( name, surname, username, email, phone, password );
 
       if (data.success) {
-        login(username, password);
+        login(email, password);
         alert("Registration successful! You are now logged in.");
       }
     } catch (error) {
@@ -50,10 +50,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   }
 
-  const login = async (username: string, password: string) => {
+  const login = async (email: string, password: string) => {
     setLoading(true);
     try {
-      const { data } = await UserLogin(username, password);
+      const { data } = await UserLogin(email, password);
 
       if (data.success) {
         setUser(data.user);
