@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3000;
 const allowedOrigins = [process.env.CLIENT_URL, process.env.ADMIN_URL] as string[];
 
 app.use(cors({
-  origin: ["http://localhost:5173", "http://localhost:5174", "https://djoe-restaurant-black.vercel.app"],
+  origin: process.env.NODE_ENV === "production" ? "https://djoe-restaurant-black.vercel.app" : ["http://localhost:5173", "http://localhost:5174"],
   credentials: true,
 }));
 
