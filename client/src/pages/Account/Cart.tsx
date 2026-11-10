@@ -9,6 +9,7 @@ function Cart() {
   const VAT = cartState.totalPrice * 0.15;
 
   useEffect(() => {
+    // persist cart to local storage whenever the cart state changes
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 

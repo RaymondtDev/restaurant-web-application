@@ -15,10 +15,14 @@ interface CartState {
   clearCart: () => void;
 }
 
+// implement cart local storage persistence
+const persistedCart = localStorage.getItem("cart"); // get cart from local storage if it exists, otherwise initialize with an empty array
+const initialCart = persistedCart ? JSON.parse(persistedCart) : [];
+
 export const useCart = create<CartState>((set, get) => ({
-  cart:  [],
-  totalItems: 0,
-  totalPrice: 0,
+  cart:  initialCart,
+  totalItems: initialCart.reduce((acc: number, item: CartItemState) => acc + item.quantity, 0),
+  totalPrice: initialCart.reduce((acc: number, item: CartItemState) => acc + (item.price * item.quantity), 0),
 
   addToCart: (product) => {
     const currentCart = get().cart;
@@ -61,8 +65,8 @@ export const useCart = create<CartState>((set, get) => ({
     const currentCart = get().cart;
     const updatedCart = currentCart.map((item) => item._id === productId ? { ...item, quantity: newQuantity } : item);
 
-    const totalItems = updatedCart.reduce((acc, item) => acc + item.quantity, 0);
-    const totalPrice = updatedCart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    const totalItems = updatedCart.reduce((acc: number, item: CartItemState) => acc + item.quantity, 0);
+    const totalPrice = updatedCart.reduce((acc: number, item: CartItemState) => acc + (item.price * item.quantity), 0);
 
     set({
       cart: updatedCart,
