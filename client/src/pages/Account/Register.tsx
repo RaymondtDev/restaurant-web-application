@@ -2,6 +2,7 @@ import { useState } from "react";
 import { BiArrowBack } from "react-icons/bi";
 import { Link } from "react-router";
 import { useAuth } from "../../hooks/UseAuth";
+import { useToast } from "../../hooks/useToast";
 
 function Register() {
   const [name, setName] = useState<string>("");
@@ -12,10 +13,12 @@ function Register() {
   const [password, setPassword] = useState<string>("");
 
   const authState = useAuth();
+  const toast = useToast();
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    authState?.register(name, surname, username, email, phone, password);
+    // authState?.register(name, surname, username, email, phone, password);
+    toast?.displayToast(true, "Register functionality is not implemented yet.");
   };
 
   return (

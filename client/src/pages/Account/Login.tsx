@@ -3,6 +3,7 @@ import { BiArrowBack } from "react-icons/bi";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Link } from "react-router";
 import { useAuth } from "../../hooks/UseAuth";
+import { useToast } from "../../hooks/useToast";
 
 function Login() {
   const [displayPassword, setDisplayPassword] = useState<boolean>(false);
@@ -10,10 +11,12 @@ function Login() {
   const [password, setPassword] = useState<string>("");
 
   const authState = useAuth();
+  const toast = useToast();
 
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
-    authState?.login(email, password);
+    // authState?.login(email, password);
+    toast?.displayToast(true, "Login functionality is not implemented yet.");
   }
 
   return (
