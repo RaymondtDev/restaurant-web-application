@@ -19,6 +19,16 @@ function Register() {
     e.preventDefault();
     // authState?.register(name, surname, username, email, phone, password);
     toast?.displayToast(true, "Register functionality is not implemented yet.");
+
+    // log the form data to the console for testing purposes
+    console.log({
+      name,
+      surname,
+      username,
+      email,
+      phone,
+      password,
+    });
   };
 
   return (
