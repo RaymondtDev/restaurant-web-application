@@ -16,7 +16,7 @@ function Login() {
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     // authState?.login(email, password);
-    toast?.displayToast(true, "Login functionality is not implemented yet.");
+    toast?.displayToast(false, "Login functionality is not implemented yet.");
 
     console.log({
       email,

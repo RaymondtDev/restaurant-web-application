@@ -9,9 +9,11 @@ import Cart from './pages/Account/Cart';
 import IndexPage from './pages/IndexPage';
 import Register from './pages/Account/Register';
 import { AuthProvider } from './contexts/AuthProvider';
+import { DisplayToastProvider } from './contexts/DisplayToastProvider';
 
 function App() {
   return (
+    <DisplayToastProvider>
     <MobileStateProvider>
     <BrowserRouter>
     <AuthProvider>
@@ -30,6 +32,7 @@ function App() {
     </AuthProvider>
     </BrowserRouter>
     </MobileStateProvider>
+    </DisplayToastProvider>
   )
 }
 
