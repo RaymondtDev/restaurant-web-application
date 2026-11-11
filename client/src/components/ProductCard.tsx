@@ -13,9 +13,11 @@ function ProductCard({ item }: ProductCardProps) {
     <article className="row-span-1 md:row-span-3 md:grid md:grid-rows-subgrid bg-white overflow-hidden shadow-sm">
       <figure className="h-45 md:h-75 overflow-hidden relative">
         <img src={item.thumbnail.url} alt="menu item thumbail" />
-        <div className="absolute top-4 right-4 text-yellow-300">
-          <FaStar size={20} />
-        </div>
+        { item.popular && (
+          <div className="absolute top-4 right-4 text-yellow-300">
+            <FaStar size={20} />
+          </div>
+        )}
       </figure>
       <div className="px-2 pt-4">
         <h3 className="capitalize font-extrabold font-head text-xl max-w-full w-full truncate md:text-wrap">{item.title}</h3>

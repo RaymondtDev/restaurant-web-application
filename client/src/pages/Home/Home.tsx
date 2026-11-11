@@ -98,7 +98,7 @@ function Home() {
           { menuSectionLoading ? (
             <MenuSectionLoader />
           ) : (
-            apiMenu?.map(item => (
+            apiMenu?.filter(item => item.popular === true).slice(0,4).map(item => (
               <ProductCard key={item._id} item={item} />
             ))
           )}
