@@ -38,8 +38,15 @@ export const CreateProduct = async (req: Request, res: Response) => {
 
 export const GetProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find();
-    res.status(200).json({ success: true, products });
+    const { category } = req.query as { category: string };
+
+    if (category === "all") {
+      const products = await Product.find();
+      res.status(200).json({ success: true, products });
+    } else {
+      const products = await Product.find({ category });
+      res.status(200).json({ success: true, products });
+    }
   } catch (error) {
     console.error("An Error Occurred When Fetching Products:", error);
     res.status(500).json({ message: "Product fetching server error", error: error });
