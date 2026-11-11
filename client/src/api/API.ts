@@ -27,4 +27,4 @@ export const UserRegister = (
     { withCredentials: true }
   );
 
-export const GetProducts = () => API.get("products")
+export const GetProducts = (category: string) => API.get("products", { params: { category } });
