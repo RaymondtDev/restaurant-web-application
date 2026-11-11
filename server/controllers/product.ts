@@ -3,7 +3,7 @@ import Product from "../models/Product";
 import { upload, cloudinary } from "../middleware/upload";
 
 export const CreateProduct = async (req: Request, res: Response) => {
-  const { title, description, price, category } = req.body as { title: string, description: string, price: number, category: string };
+  const { title, description, popular, price, category } = req.body as { title: string, description: string, popular: string, price: number, category: string };
 
   try {
     if (!req.file) return res.status(400).json({ success: false, message: "No file uploaded" });
@@ -18,6 +18,7 @@ export const CreateProduct = async (req: Request, res: Response) => {
     const product = new Product({
       title,
       description,
+      popular: JSON.parse(popular),
       thumbnail: {
         url: result.secure_url,
         publicId: result.public_id
