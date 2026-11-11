@@ -10,7 +10,7 @@ function ProductCard({ item }: ProductCardProps) {
   const addToCart = useCart((state) => state.addToCart);
 
   return (
-    <div className="row-span-1 md:row-span-3 md:grid md:grid-rows-subgrid bg-white overflow-hidden">
+    <article className="row-span-1 md:row-span-3 md:grid md:grid-rows-subgrid bg-white overflow-hidden shadow-sm">
       <figure className="h-45 md:h-75 overflow-hidden relative">
         <img src={item.thumbnail.url} alt="menu item thumbail" />
         <div className="absolute top-4 right-4 text-yellow-300">
@@ -29,7 +29,7 @@ function ProductCard({ item }: ProductCardProps) {
           <FaPlus size={15} />
         </button>
       </div>
-    </div>
+    </article>
   );
 }
 

@@ -35,7 +35,7 @@ function Home() {
   useEffect(() => {
     const fetchProducts = async() => {
       try {
-        const { data } = await GetProducts();
+        const { data } = await GetProducts("all");
         setApiMenu(data.products);
       } catch (error) {
         console.error(error);

@@ -18,7 +18,7 @@ function Register() {
   const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     // authState?.register(name, surname, username, email, phone, password);
-    toast?.displayToast(false, "Register functionality is not implemented yet.");
+    toast?.displayToast(500, false, "Register functionality is not implemented yet.");
 
     // log the form data to the console for testing purposes
     console.log({
