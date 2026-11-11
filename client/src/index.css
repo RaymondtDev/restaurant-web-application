@@ -4,7 +4,7 @@
 @import "tailwindcss";
 
 html {
-  @apply box-border;
+  @apply box-border scroll-smooth;
 }
 
 .MuiFormControl-root {

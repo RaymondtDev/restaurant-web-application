@@ -10,12 +10,14 @@ import IndexPage from './pages/IndexPage';
 import Register from './pages/Account/Register';
 import { AuthProvider } from './contexts/AuthProvider';
 import { DisplayToastProvider } from './contexts/DisplayToastProvider';
+import ScrollToTop from './utils/ScrollToTop';
 
 function App() {
   return (
     <DisplayToastProvider>
     <MobileStateProvider>
     <BrowserRouter>
+    <ScrollToTop />
     <AuthProvider>
       <Routes>
         <Route path="/" element={<IndexPage />}>
